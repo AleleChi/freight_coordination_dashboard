@@ -6,7 +6,7 @@
   <title>HinterLink™ Dashboard</title>
 
   <!-- Main Styles -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./css/style.css" />
 
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -196,11 +196,6 @@
   </div>
 </div>
 
-
-
-
-      <!-- Reservation System -->
-<!-- Terminal Access Reservation -->
 <!-- Terminal Access Reservation -->
 <div class="panel wide">
   <h2>Terminal Access Reservation</h2>
@@ -249,11 +244,6 @@
   </div>
 </div>
 
-<!-- Reserved Slot Details Modal -->
-
-<!-- View Details Button -->
-<!-- <button type="button" class="btn-secondary" id="viewDetailsBtn">View Details</button> -->
-
 <!-- Reserved Slot Modal -->
 <div class="modal hidden" id="reservedSlotModal">
   <div class="modal-content">
@@ -265,16 +255,6 @@
     <button type="button" class="btn-secondary" id="cancelReservationBtn">Cancel Reservation</button>
   </div>
 </div>
-
-
-<!-- View Details Button -->
-<!-- <button type="button" class="btn-secondary" id="viewDetailsBtn">View Details</button> -->
-
-
-
-
-
-
 
     </section>
   </main>
@@ -288,8 +268,6 @@
         <p><strong>Mode:</strong> <span id="optRouteMode">—</span></p>
         <p><strong>Congestion:</strong> <span id="optRouteCongestion">—</span>%</p>
         <p><strong>Risk Level:</strong> <span id="optRouteRisk">—</span></p>
-
-        <!-- Detailed information will be populated dynamically by the View Details button -->
         <div id="routeModalContent"></div>
     </div>
 </div>
@@ -299,8 +277,8 @@
 
 </div>
 <!-- App Script -->
-<script src="script.js"></script>
-<script src="reservation.js"></script>
+<script src="./js/script.js"></script>
+<script src="./js/reservation.js"></script>
 
 </body>
 </html>
