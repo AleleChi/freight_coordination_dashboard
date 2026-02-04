@@ -1,0 +1,97 @@
+/* Body and Layout */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #f7f7f7;  /* Soft neutral light background */
+    color: #333;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    background: linear-gradient(180deg, rgba(0, 119, 204, 0.6), rgba(0, 102, 204, 0.7)), url('hero-bg.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* Hero Content */
+.hero-content {
+    max-width: 650px;
+    z-index: 2;
+}
+
+/* Hero Title */
+.hero-title {
+    font-size: 4rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Hero Description */
+.hero-description {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* CTA Button */
+.cta-btn {
+    display: inline-block;
+    padding: 16px 45px;
+    background: linear-gradient(135deg, #0077cc, #005bb5); /* Bright gradient blue */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0px 5px 15px rgba(0, 119, 204, 0.3);
+}
+
+.cta-btn:hover {
+    background: linear-gradient(135deg, #005bb5, #003f87);
+    transform: translateY(-4px);
+}
+
+.cta-btn:active {
+    background: linear-gradient(135deg, #003f87, #002c62);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.8rem;
+    }
+
+    .hero-description {
+        font-size: 1.3rem;
+        margin-bottom: 25px;
+    }
+
+    .cta-btn {
+        padding: 14px 35px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-description {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+
+    .cta-btn {
+        padding: 14px 30px;
+        font-size: 1rem;
+    }
+}

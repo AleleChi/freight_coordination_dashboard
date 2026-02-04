@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HinterLink™ Dashboard</title>
+
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <!-- Leaflet PolylineDecorator -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-polylinedecorator@1.7.0/dist/leaflet.polylineDecorator.css"/>
+
+  <script src="https://unpkg.com/leaflet-polylinedecorator@1.7.0/dist/leaflet.polylineDecorator.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
+</head>
+
+<body>
+<div class="app-layout">
+  <!-- Sidebar Navigation -->
+  <div class="sidebar" role="navigation" aria-label="Primary">
+    <h2>HinterLink™</h2>
+    <nav class="sidebar-nav">
+      <a href="#">Traffic</a>
+      <a href="#">Capacity</a>
+      <a href="#">Schedules</a>
+      <a href="#">Forecasting</a>
+      <a href="#">Routes</a>
+      <a href="#">Reservations</a>
+    </nav>
+  </div>
+
+  <button class="hamburger" id="hamburgerBtn">☰</button>
+
+
+  <!-- Main Dashboard -->
+  <main class="dashboard">
+
+    <!-- Header -->
+    <header class="topbar">
+      <h1>Freight Coordination Dashboard</h1>
+      <p>Optimize hinterland freight flow beyond port gates</p>
+    </header>
+
+    <!-- KPI Cards -->
+    <section class="kpi-grid">
+      <div class="kpi-card" id="card1">
+        <h3>Avg Gate Wait</h3>
+        <p id="waitTime">18 min</p>
+      </div>
+
+      <div class="kpi-card" id="card2">
+        <h3>Road Utilization</h3>
+        <p id="roadUse">--%</p>
+      </div>
+
+      <div class="kpi-card" id="card3">
+        <h3>ETA Reliability</h3>
+        <p id="eta">91%</p>
+      </div>
+
+      <div class="kpi-card" id="card4">
+        <h3>Congestion Risk</h3>
+        <p id="risk">--</p>
+      </div>
+    </section>
+
+    <!-- Dashboard Grid -->
+    <section class="grid">
+
+      <!-- Real-Time Traffic Map -->
+      <div class="panel">
+        <h2>Real-Time Traffic Map</h2>
+        <div class="map-box">
+          <div id="map"></div>
+        </div>
+      </div>
+
+      <!-- Infrastructure Capacity -->
+      <div class="panel capacity-panel">
+  <h2>Infrastructure Capacity</h2>
+
+  <div class="capacity-item">
+    <div class="capacity-header">
+      <span>Road Corridor A</span>
+      <strong>80%</strong>
+    </div>
+    <div class="capacity-bar" title="Road Corridor A - 80%">
+      <div class="capacity-fill road" style="width: 80%;"></div>
+    </div>
+  </div>
+
+  <div class="capacity-item">
+    <div class="capacity-header">
+      <span>Rail Terminal Hub</span>
+      <strong>62%</strong>
+    </div>
+    <div class="capacity-bar" title="Rail Terminal Hub - 62%">
+      <div class="capacity-fill rail" style="width: 62%;"></div>
+    </div>
+  </div>
+
+  <div class="capacity-item">
+    <div class="capacity-header">
+      <span>Barge Channel</span>
+      <strong>45%</strong>
+    </div>
+    <div class="capacity-bar" title="Barge Channel - 45%">
+      <div class="capacity-fill barge" style="width: 45%;"></div>
+    </div>
+  </div>
+</div>
+
+
+      <!-- Transport Schedules -->
+      <div class="panel wide">
+        <h2>Transport Schedules</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Mode</th>
+              <th>Departure</th>
+              <th>Destination</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Truck</td>
+              <td>10:30</td>
+              <td>Antwerp DC</td>
+              <td>On Time</td>
+            </tr>
+            <tr>
+              <td>Rail</td>
+              <td>11:00</td>
+              <td>Brussels Hub</td>
+              <td>Delayed</td>
+            </tr>
+            <tr>
+              <td>Barge</td>
+              <td>12:15</td>
+              <td>Rotterdam</td>
+              <td>Scheduled</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- AI Congestion Forecast -->
+      <div class="panel">
+        <h2>AI Congestion Forecast</h2>
+        <canvas id="forecastChart"></canvas>
+      </div>
+
+  
+<!-- Multimodal Route Optimization Panel -->
+<div class="panel route-panel">
+  <div class="route-head">
+    <div class="route-title-wrap">
+      <h2>Multimodal Route Optimization</h2>
+      <span class="route-badge" aria-label="Optimization status">Live</span>
+    </div>
+    <div class="route-sub">
+      <p><strong>Recommended Route:</strong></p>
+      <p>Calculated dynamically based on congestion & mode efficiency</p>
+    </div>
+  </div>
+
+  <div class="route-body">
+    <!-- Visual route preview (UI only) -->
+    <div class="route-preview" aria-hidden="true">
+      <div class="route-line"></div>
+      <div class="route-node start"></div>
+      <div class="route-node mid"></div>
+      <div class="route-node end"></div>
+    </div>
+
+    <!-- Congestion, Mode, and ETA indicators (chips) -->
+    <div class="route-chips">
+      <span class="chip congestion">Congestion</span>
+      <span class="chip mode">Mode</span>
+      <span class="chip eta">ETA</span>
+    </div>
+
+    <div class="route-actions">
+      <button class="btn-primary-cta" onclick="optimizeRoute()">Optimize Route</button>
+      <button type="button" class="btn-secondary-cta" id="routeDetailsBtn">View Details</button>
+    </div>
+
+    <p class="route-note">Tip: Results update after route optimization</p>
+  </div>
+</div>
+
+
+
+
+      <!-- Reservation System -->
+<!-- Terminal Access Reservation -->
+<!-- Terminal Access Reservation -->
+<div class="panel wide">
+  <h2>Terminal Access Reservation</h2>
+
+  <form id="reservationForm">
+    <label>Select Time Slot:</label><br />
+    <input type="text" id="timeSlot" class="styled-datetime" placeholder="Select date & time" readonly required />
+
+    <!-- Date & Time Picker -->
+    <div class="datetime-picker" id="customPicker">
+      <div class="picker-card calendar">
+        <div class="picker-header">February 2026</div>
+        <div class="calendar-grid">
+          <span class="day">Su</span><span class="day">Mo</span><span class="day">Tu</span>
+          <span class="day">We</span><span class="day">Th</span><span class="day">Fr</span>
+          <span class="day">Sa</span>
+          <button type="button" class="date">24</button>
+        </div>
+      </div>
+
+      <div class="picker-card time">
+        <div class="picker-header">Time</div>
+        <div class="time-row">
+          <div class="time-box">1<br /><small>hour</small></div>
+          <div class="time-box">30<br /><small>min</small></div>
+          <div class="time-box">30<br /><small>sec</small></div>
+        </div>
+
+        <div class="ampm">
+          <button type="button" class="active">AM</button>
+          <button type="button">PM</button>
+        </div>
+
+        <button type="button" class="btn-primary">OK</button>
+        <button type="button" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+    <br />
+    <button type="submit" class="btn-primary">Reserve Slot</button>
+    <button type="button" class="btn-secondary" id="viewDetailsBtn">View Details</button>
+  </form>
+
+  <!-- Loading Spinner -->
+  <div id="loadingSpinner" class="spinner" style="display: none;">
+    <div class="spinner-inner"></div>
+  </div>
+</div>
+
+<!-- Reserved Slot Details Modal -->
+
+<!-- View Details Button -->
+<!-- <button type="button" class="btn-secondary" id="viewDetailsBtn">View Details</button> -->
+
+<!-- Reserved Slot Modal -->
+<div class="modal hidden" id="reservedSlotModal">
+  <div class="modal-content">
+    <span id="closeReservedModal" class="close">&times;</span>
+    <h2>Your Reserved Slot</h2>
+    <p><strong>Reservation Date:</strong> <span id="reservedDate">-</span></p>
+    <p><strong>Reservation Time:</strong> <span id="reservedTime">-</span></p>
+    <p><strong>Status:</strong> <span id="reservedStatus">Pending</span></p>
+    <button type="button" class="btn-secondary" id="cancelReservationBtn">Cancel Reservation</button>
+  </div>
+</div>
+
+
+<!-- View Details Button -->
+<!-- <button type="button" class="btn-secondary" id="viewDetailsBtn">View Details</button> -->
+
+
+
+
+
+
+
+    </section>
+  </main>
+
+<!-- Modal for Optimized Route Recommendation -->
+<div id="routeModal" class="modal hidden">
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h2>🚦 Optimized Route Recommendation</h2>
+        <p><strong>Route:</strong> <span id="optRouteName">—</span></p>
+        <p><strong>Mode:</strong> <span id="optRouteMode">—</span></p>
+        <p><strong>Congestion:</strong> <span id="optRouteCongestion">—</span>%</p>
+        <p><strong>Risk Level:</strong> <span id="optRouteRisk">—</span></p>
+
+        <!-- Detailed information will be populated dynamically by the View Details button -->
+        <div id="routeModalContent"></div>
+    </div>
+</div>
+
+
+
+
+</div>
+<!-- App Script -->
+<script src="script.js"></script>
+<script src="reservation.js"></script>
+
+</body>
+</html>
