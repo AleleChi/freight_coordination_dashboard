@@ -1265,7 +1265,7 @@ button:hover {
 }
 
 /* Mobile behavior */
-@media (max-width: 770px) {
+@media (max-width: 768px) {
   .hamburger {
     display: inline-block;
   }
@@ -1300,7 +1300,7 @@ button:hover {
   }
 }
 
-@media (max-width: 770px) {
+@media (max-width: 768px) {
   .sidebar nav,
   .sidebar .nav,
   .sidebar .menu,
@@ -1317,7 +1317,7 @@ button:hover {
   }
 }
 
-@media (max-width: 770px) {
+@media (max-width: 768px) {
   .sidebar {
     z-index: 2000;
     pointer-events: auto;
@@ -1330,11 +1330,11 @@ button:hover {
 
   .sidebar.open ~ .dashboard,
   .sidebar.open ~ .dashboard * {
-    pointer-events: none;
+    pointer-events: auto;
   }
 }
 
-@media (max-width: 770px) {
+@media (max-width: 768px) {
   .sidebar nav,
   .sidebar .menu,
   .sidebar ul {
@@ -1344,7 +1344,7 @@ button:hover {
   }
 }
 
-@media (max-width: 770px) {
+@media (max-width: 768px) {
   .sidebar a {
     transition:
       background-color 0.2s ease,
@@ -1362,7 +1362,7 @@ button:hover {
   }
 }
 
-@media (max-width: 770px) {
+@media (max-width: 768px) {
   .sidebar a.active {
     background: rgba(255, 255, 255, 0.12);
     border-left: 3px solid #ffffff;
@@ -1370,14 +1370,14 @@ button:hover {
   }
 }
 
-@media (max-width: 770px) {
+@media (max-width: 768px) {
   .sidebar {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
 }
 
-@media (min-width: 771px) {
+@media (min-width: 768px) {
   .hamburger {
     display: none !important;
   }
